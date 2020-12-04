@@ -22,12 +22,103 @@ struct veterinario
 };
 
 int menuprincipal();
-int usuario_(users z)
+int usuario_(users z,int tipo);
+int pass_(users z);
+void opcion1();
+
+void opcion2()
+{
+	users x;int tipo=2;
+	int b=1;
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t      Registrar Usuario Asistente          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\tIngrese el Nombre y Apellido:\n");
+	_flushall();
+	gets(x.nombre);
+	do
+	{
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      Registrar Usuario Asistente          \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese el nombre de usuario :\n");
+		_flushall();
+		gets(x.usuario);
+		b=usuario_(x,tipo);
+	}while(b==1);
+	do
+	{
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      Registrar Usuario Asistente          \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese la contrase%ca :\n",164);
+		_flushall();
+		gets(x.pass);
+		b=pass_(x);
+	}while(b==1);
+	FILE *arch;
+	arch=fopen("Usuario.dat","a+b");
+	fwrite(&x,sizeof(users),1,arch);
+	fclose(arch);  
+}
+
+main()
+{
+	int opcion=0;
+	
+	do
+	{
+		opcion=menuprincipal();
+		switch(opcion)
+		{
+			case 1:
+				opcion1();//registrar Veterinario
+				break;
+			case 2:
+				opcion2();//registrar usuario de administracion
+				break;
+			case 3:
+		//		opcion3();//
+				break;
+		}
+	}while(opcion!=0);	
+}
+int menuprincipal()
+{
+	int opcion;
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t        Modulo de Administracion          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t 1.- Registrar Veterinario.    \n");
+	printf("\n\t\t\t 2.- Registrar Usuario Asistente. \n");
+	printf("\n\t\t\t 3.- Atenciones por Veterinarios. \n");
+	printf("\n\t\t\t 4.- Ranking de Veterinarios por Atenciones.      \n\n");
+	printf("\n\t\t\t 0.- Salir del programa.               \n");
+	printf("\n\t\t\t ======================================\n");
+	printf("\n\t\t\t    Ingrese su Opcion ...: "); scanf(" %d",&opcion);
+	return opcion;
+}
+int usuario_(users z,int tipo)
 {
 	int size,may=0,num=0,i,b=0;
 	users aux;
 	FILE *arch;
-	arch=fopen("Veterinario.dat","rb");
+	if(tipo=1)
+	{
+		arch=fopen("Veterinario.dat","rb");	
+	}
+	if(tipo=2)
+	{
+		arch=fopen("Usuario.dat","rb");	
+	}
 	rewind(arch);
 	//inciso a
 	if(arch==NULL){}
@@ -165,7 +256,7 @@ int pass_(users z)
 	strupr(auxiliar);
 	for(i=0;i<size;i++)
 	{
-		if(auxiliar[i]>64 or auxiliar[i]<91)
+		if(auxiliar[i]>64 and auxiliar[i]<91)
 		{
 			if(auxiliar[i+1]==(auxiliar[i]+1))
 			{
@@ -184,7 +275,7 @@ void opcion1()
 {
 	users x;
 	veterinario regis;
-	int b=1;
+	int b=1,tipo=1;
 	system("CLS");
 	printf("");
 	printf("\n\t\t\t=======================================\n");
@@ -205,7 +296,7 @@ void opcion1()
 		_flushall();
 		//cin.getline(x.usuario,10,'\n');
 		gets(x.usuario);
-		b=usuario_(x);
+		b=usuario_(x,tipo);
 	}while(b==1);
 	do
 	{
@@ -250,45 +341,4 @@ void opcion1()
 	fwrite(&regis,sizeof(veterinario),1,arch);
 	fclose(arch);  
 }
-
-
-main()
-{
-	int opcion=0;
-	
-	do
-	{
-		opcion=menuprincipal();
-		switch(opcion)
-		{
-			case 1:
-				opcion1();//registrar Veterinario
-				break;
-			case 2:
-		//		opcion2();//registrar usuario de administracion
-				break;
-			case 3:
-		//		opcion3();//
-				break;
-		}
-	}while(opcion!=0);	
-}
-int menuprincipal()
-{
-	int opcion;
-	system("CLS");
-	printf("");
-	printf("\n\t\t\t=======================================\n");
-	printf("\n\t\t\t        Modulo de Administracion          \n");
-	printf("\n\t\t\t=======================================\n");
-	printf("\n\t\t\t 1.- Registrar Veterinario.    \n");
-	printf("\n\t\t\t 2.- Registrar Usuario Asistente. \n");
-	printf("\n\t\t\t 3.- Atenciones por Veterinarios. \n");
-	printf("\n\t\t\t 4.- Ranking de Veterinarios por Atenciones.      \n\n");
-	printf("\n\t\t\t 0.- Salir del programa.               \n");
-	printf("\n\t\t\t ======================================\n");
-	printf("\n\t\t\t    Ingrese su Opcion ...: "); scanf(" %d",&opcion);
-	return opcion;
-}
-
 
