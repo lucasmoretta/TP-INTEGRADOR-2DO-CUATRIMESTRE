@@ -5,19 +5,27 @@
 
 using namespace std;
 
-struct veterinario
+struct users
 {
-	char usuario[10];
-	char pass[10];
+	char usuario[20];
+	char pass[20];
 	char nombre[60];
 };
-
+struct veterinario
+{
+	char usuario[20];
+	char pass[20];
+	char nombre[60];
+	int matricula;
+	int dni;
+	int telefono;
+};
 
 int menuprincipal();
-int usuario_(veterinario z)
+int usuario_(users z)
 {
 	int size,may=0,num=0,i,b=0;
-	veterinario aux;
+	users aux;
 	FILE *arch;
 	arch=fopen("Veterinario.dat","rb");
 	rewind(arch);
@@ -33,7 +41,7 @@ int usuario_(veterinario z)
 				printf("\n\t\t\tIngrese otro nombre de usuario\n");
 				printf("\n\t\t\tEste ya se encuentra en uso\n");
 				printf("\n\n\n\t");system("pause");system("cls");
-				b=1;
+				return 1;
 			}
 		}
 	}
@@ -44,7 +52,7 @@ int usuario_(veterinario z)
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe tener minimo 6 caracteres y maximo de 10...\n");
 		printf("\n\n\n\t");system("pause");system("cls");
-		b=1;
+		return 1;
 	}
 	//inciso b
 	if(z.usuario[0]>122 or z.usuario[0]<97)
@@ -52,7 +60,7 @@ int usuario_(veterinario z)
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe comenzar con una minuscula\n");
 		printf("\n\n\n\t");system("pause");system("cls");
-		b=1;
+		return 1;
 	}
 	//inciso c
 	for(i=0;i<size;i++)
@@ -67,15 +75,14 @@ int usuario_(veterinario z)
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe tener minimo 2 letras mayusculas\n");
 		printf("\n\n\n\t");system("pause");system("cls");
-		b=1;
+		return 1;
 	}
 	//inciso d
 	for(i=0;i<size;i++)
 	{
-		printf("\t %c",z.usuario[i]);
+	
 		if(z.usuario[i]>47 and z.usuario[i]<58)
 		{	
-		//	printf("\t %c",z.usuario[i]);
 			num++;
 		}	
 	}
@@ -84,15 +91,15 @@ int usuario_(veterinario z)
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe tener maximo 3 numeros\n");
 		printf("\n\n\n\t");system("pause");system("cls");
-		b=1;
+		return 1;
 	}
 	fclose(arch);
-	return b;
+	return 0;
 }
-int pass_(veterinario z)
+int pass_(users z)
 {
 	int size,may=0,num=0,min=0,i;
-	veterinario aux;
+	users aux;
 	char auxiliar[11];
 	//inciso c
 	size=strlen(z.pass);
@@ -106,7 +113,8 @@ int pass_(veterinario z)
 	//inciso b
 	for(i=0;i<size;i++)
 	{
-		if(z.pass[i]<65 or z.pass[i]>90 or z.pass[i]<97 or z.pass[i]>122 or z.pass[i]<48 or z.pass[i]>57)
+		if((z.pass[i]<65 or z.pass[i]>90) and (z.pass[i]<97 or z.pass[i]>122) and (z.pass[i]<48 or z.pass[i]>57))
+		//if(z.pass[i]<65 or z.pass[i]>90 or z.pass[i]<97 or z.pass[i]>122 or z.pass[i]<48 or z.pass[i]>57)
 		{	
 			printf("\n\t\t\tIngrese otra contrase%ca \n",164);
 			printf("\n\t\t\tLa contrase%ca debe ser alfanumerica \n",164);
@@ -117,19 +125,20 @@ int pass_(veterinario z)
 	//inciso a
 	for(i=0;i<size;i++)
 	{
-		if(z.pass[i]>64 or z.pass[i]<91)
+		if(z.pass[i]>64 and z.pass[i]<91)
 		{
 			may++;
 		}
-		if(z.pass[i]>96 or z.pass[i]<123)
+		if(z.pass[i]>96 and z.pass[i]<123)
 		{
 			min++;
 		}
-		if(z.pass[i]>47 or z.pass[i]<58)
+		if(z.pass[i]>47 and z.pass[i]<58)
 		{
 			num++;
 		}	
 	}
+	printf("mayus:%d minus:%d num:%d",may,min,num);
 	if(may==0 or min==0 or num==0)
 	{
 		printf("\n\t\t\tIngrese otra contrase%ca \n",164);
@@ -140,9 +149,9 @@ int pass_(veterinario z)
 	//inciso d
 	for(i=0;i<size;i++)
 	{
-		if(z.pass[i]>47 or z.pass[i]<58)
+		if(z.pass[i]>47 and z.pass[i]<58)
 		{
-			if((z.pass[i+1]>47 or z.pass[i+1]<58) and (z.pass[i+2]>47 or z.pass[i+2]<58) and (z.pass[i+3]>47 or z.pass[i+3]<58) )
+			if((z.pass[i+1]>47 and z.pass[i+1]<58) and (z.pass[i+2]>47 and z.pass[i+2]<58) and (z.pass[i+3]>47 and z.pass[i+3]<58) )
 			{
 				printf("\n\t\t\tIngrese otra contrase%ca \n",164);
 				printf("\n\t\t\tLa contrase%ca no debe tener mas de 3 numeros consecutivos \n",164);
@@ -173,9 +182,8 @@ int pass_(veterinario z)
 
 void opcion1()
 {
-	//FILE *arch;
-	//arch=fopen("Veterinarios.dat","a+b"); rb   
-	veterinario x;
+	users x;
+	veterinario regis;
 	int b=1;
 	system("CLS");
 	printf("");
@@ -184,7 +192,8 @@ void opcion1()
 	printf("\n\t\t\t=======================================\n");
 	printf("\n\t\t\tIngrese el Nombre y Apellido:\n");
 	_flushall();
-	cin.getline(x.nombre,60,'\n');
+	//cin.getline(x.nombre,60,'\n');
+	gets(x.nombre);
 	do
 	{
 		system("CLS");
@@ -194,7 +203,8 @@ void opcion1()
 		printf("\n\t\t\t=======================================\n");
 		printf("\n\t\t\tIngrese el nombre de usuario :\n");
 		_flushall();
-		cin.getline(x.usuario,10,'\n');
+		//cin.getline(x.usuario,10,'\n');
+		gets(x.usuario);
 		b=usuario_(x);
 	}while(b==1);
 	do
@@ -206,10 +216,39 @@ void opcion1()
 		printf("\n\t\t\t=======================================\n");
 		printf("\n\t\t\tIngrese la contrase%ca :\n",164);
 		_flushall();
-		cin.getline(x.pass,10,'\n');
+		//cin.getline(x.pass,10,'\n');
+		gets(x.pass);
 		b=pass_(x);
 	}while(b==1);
-	
+	strcpy(regis.nombre,x.nombre);
+	strcpy(regis.usuario,x.usuario);
+	strcpy(regis.pass,x.pass);
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t        Registrar Veterinario          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\tIngrese la matricula :\n");
+	_flushall();
+	scanf("%d",&regis.matricula);
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t        Registrar Veterinario          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\tIngrese el dni:\n");
+	scanf("%d",&regis.dni);
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t        Registrar Veterinario          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\tIngrese el numero de telefono :\n");
+	scanf("%d",&regis.telefono);	
+	FILE *arch;
+	arch=fopen("Veterinarios.dat","a+b");
+	fwrite(&regis,sizeof(veterinario),1,arch);
+	fclose(arch);  
 }
 
 
