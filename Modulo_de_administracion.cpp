@@ -20,54 +20,78 @@ struct veterinario
 	int dni;
 	int telefono;
 };
-
+struct fecha
+{
+	int dia,mes,year;
+};
+struct turnos
+{
+	int matricula_vet;
+	fecha fec;
+	int DNI_dueno;
+	char detalle_atencion[380];	
+};
 int menuprincipal();
 int usuario_(users z,int tipo);
 int pass_(users z);
 void opcion1();
+void opcion2();
 
-void opcion2()
+void opcion3()
 {
-	users x;int tipo=2;
-	int b=1;
-	system("CLS");
-	printf("");
-	printf("\n\t\t\t=======================================\n");
-	printf("\n\t\t\t      Registrar Usuario Asistente          \n");
-	printf("\n\t\t\t=======================================\n");
-	printf("\n\t\t\tIngrese el Nombre y Apellido:\n");
-	_flushall();
-	gets(x.nombre);
-	do
-	{
-		system("CLS");
-		printf("");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\t      Registrar Usuario Asistente          \n");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\tIngrese el nombre de usuario :\n");
-		_flushall();
-		gets(x.usuario);
-		b=usuario_(x,tipo);
-	}while(b==1);
-	do
-	{
-		system("CLS");
-		printf("");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\t      Registrar Usuario Asistente          \n");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\tIngrese la contrase%ca :\n",164);
-		_flushall();
-		gets(x.pass);
-		b=pass_(x);
-	}while(b==1);
+	turnos x;
 	FILE *arch;
-	arch=fopen("Usuario.dat","a+b");
-	fwrite(&x,sizeof(users),1,arch);
-	fclose(arch);  
+	arch=fopen("Turnos.dat","rb");
+	if(arch==NULL)
+	{
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      No hay atenciones registradas          \n");
+		printf("\n\t\t\t=======================================\n");	
+	}
+	else
+	{
+		int matr,b=0;
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      Atenciones por Veterinarios          \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese la matricula del veterinario :\n");
+		scanf("%d",&matr);
+		system("CLS");
+		rewind(arch),
+		fread(&x,sizeof(turnos),1,arch);
+		while(!feof(arch))
+		{
+			if(matr==x.matricula_vet)
+			{
+				b++;
+				if(b==1)
+				{
+					printf("\n\t\t\t=======================================\n");
+					printf("\n\t\t\t      Atenciones por Veterinario          \n");
+					printf("\n\t\t\t      Matricula:%d          \n",matr);
+					printf("\n\t\t\t=======================================\n");	
+				}
+				printf("\n\t\t\tDNI due%co de la mascota:%d\n",164,x.DNI_dueno);
+				printf("\n\t\t\tFecha:%d/%d/%d \n",x.fec.dia,x.fec.mes,x.fec.year);
+				printf("\n\t\t\t=======================================\n");
+				//printf("\n\n");
+			}
+		}
+		if(b==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=======================================\n");
+			printf("\n\t\t\t      No hay atenciones registradas          \n");
+			printf("\n\t\t\t=======================================\n");
+		}
+	}
+	
 }
-
 main()
 {
 	int opcion=0;
@@ -339,6 +363,47 @@ void opcion1()
 	FILE *arch;
 	arch=fopen("Veterinarios.dat","a+b");
 	fwrite(&regis,sizeof(veterinario),1,arch);
+	fclose(arch);  
+}
+void opcion2()
+{
+	users x;int tipo=2;
+	int b=1;
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t      Registrar Usuario Asistente          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\tIngrese el Nombre y Apellido:\n");
+	_flushall();
+	gets(x.nombre);
+	do
+	{
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      Registrar Usuario Asistente          \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese el nombre de usuario :\n");
+		_flushall();
+		gets(x.usuario);
+		b=usuario_(x,tipo);
+	}while(b==1);
+	do
+	{
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      Registrar Usuario Asistente          \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese la contrase%ca :\n",164);
+		_flushall();
+		gets(x.pass);
+		b=pass_(x);
+	}while(b==1);
+	FILE *arch;
+	arch=fopen("Usuario.dat","a+b");
+	fwrite(&x,sizeof(users),1,arch);
 	fclose(arch);  
 }
 
