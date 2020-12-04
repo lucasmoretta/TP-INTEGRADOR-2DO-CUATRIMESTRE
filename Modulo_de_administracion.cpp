@@ -31,12 +31,18 @@ struct turnos
 	int DNI_dueno;
 	char detalle_atencion[380];	
 };
+struct ranking
+{
+	char nombre[60];
+	int matricula;
+	int atenciones;
+};
 int menuprincipal();
 int usuario_(users z,int tipo);
 int pass_(users z);
 void opcion1();
 void opcion2();
-
+/*
 void opcion3()
 {
 	turnos x;
@@ -91,7 +97,93 @@ void opcion3()
 		}
 	}
 	
+}*/
+/*
+void ordenar_mostrar(ranking atenc[20],int n)
+{
+	int i;
+	ranking aux;
+	do
+	{
+		b=0
+		for(i=0;i<n;i++)
+		{
+			if(atenc[i].atenciones<atenc[i+1].atenciones)
+			{
+				aux=atenc[i];
+				atenc[i]=atenc[i+1];
+				atenc[i+1]=aux;
+				b=1;
+			}
+		}	
+	}while(b==1);
+	system("CLS");
+	printf("");
+	printf("\n\t\t\t=========================================\n");
+	printf("\n\t\t\t Ranking de Veterinarios por Atenciones          \n");
+	printf("\n\t\t\t=========================================\n");
+	for(i=0;i<n;i++)
+	{
+		printf("\n\t\t\t%d) %s           \n",i,atenc[i].nombre);
+		printf("\n\t\t\tAtenciones: %d           \n",atenc[i].atenciones);
+		printf("\n\t\t\tmatricula: %d           \n",atenc[i].matricula);
+		printf("\n\t\t\t=========================================\n");
+	}
+	printf("\n\n\n\t");system("pause");system("cls");	
 }
+void opcion4()
+{
+	veterinario x;turnos z;ranking atenc[20];
+	FILE *veter,*att;
+	int contador=0,i=0;
+	veter=fopen("Veterinarios.dat","rb");
+	if(veter==NULL)
+	{
+		system("CLS");
+		printf("");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t     No hay Veterinarios registrados          \n");
+		printf("\n\t\t\t=======================================\n");
+	}
+	else
+	{
+		att=fopen("Turnos.dat","rb");
+		if(att=NULL)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=======================================\n");
+			printf("\n\t\t\t      No hay atenciones registradas          \n");
+			printf("\n\t\t\t=======================================\n");	
+		}
+		else
+		{
+			fread(&x,sizeof(veterinario),1,veter);
+			while(!feof(veter))
+			{
+				contador=0;
+				fread(&z,sizeof(turnos),1,att);
+				while(!feof(veter))
+				{
+					if(x.matricula==z.matricula_vet)
+					{
+						contador++;
+					}
+					fread(&z,sizeof(turnos),1,att);
+				}
+				atenc[i].atenciones=contador;
+				atenc[i].matricula=x.matricula;
+				strcpy(atenc[i].nombre,x.nombre);
+				i++;
+				fread(&x,sizeof(veterinario),1,veter);	
+			}	
+		}
+	}
+	fclose(veter);
+	fclose(att);
+	ordenar_mostrar(atenc,i);
+}
+*/
 main()
 {
 	int opcion=0;
@@ -109,6 +201,9 @@ main()
 				break;
 			case 3:
 		//		opcion3();//
+				break;
+			case 4:
+		//		opcion4();//
 				break;
 		}
 	}while(opcion!=0);	
