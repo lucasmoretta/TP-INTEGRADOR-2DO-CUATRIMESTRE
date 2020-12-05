@@ -31,10 +31,11 @@ struct users
 
 int menuasistente();
 void inicio(int &b);
-void mascota();
+void mascot(mascota m);
 
 main()
 {
+	mascota m;
  	int opcion=0,b=0;
  	
  	do
@@ -47,7 +48,7 @@ main()
 				break;
 			case 2:
 				if(b==1)
-				mascota();
+				mascota(m);
 				else
 				printf("\nInicie sesion para realizar las otras opciones...");
 				break;
@@ -140,7 +141,34 @@ void inicio(int &b)
 	}
 }
 
-void mascota()
+void mascot(mascota m)
 {
 	FILE *arch;
+	
+	
+	arch=fopen("mascotas.dat","a+b");
+	
+	_flushall();
+	printf("\nNombre de la Mascota: ");
+	gets(m.ApeyNom);
+	_flushall();
+	printf("\nDomicilio: ");
+	gets(m.Domicilio);
+	printf("\nDNI: ");
+	scanf("%d",&m.DNI_Dueno);
+	_flushall();
+	printf("\nLocalidad: ");
+	gets(m.localidad);
+	printf("\nFecha de nacimiento: ");
+	printf("\nDia: ");
+	scanf("%d",&m.fec.dia);
+	printf("\nMes: ");
+	scanf("%d",&m.fec.mes);
+	printf("\nA%o: ",164);
+	scanf("%d",&m.fec.anio);
+	
+	printf("\nPeso: ");
+	scanf("%f",&m.Peso);
+	printf("\nTelefono: ");
+	scanf("%d",&m.telefono);
 }
