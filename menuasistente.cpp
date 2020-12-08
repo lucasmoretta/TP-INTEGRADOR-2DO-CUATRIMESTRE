@@ -21,6 +21,7 @@ struct Turnos
 	Fecha fec;
 	int DNI_Dueno;
 	char detalle[380];
+	bool borrado;
 };
 struct users
 {
@@ -32,7 +33,13 @@ struct users
 int menuasistente();
 void inicio(int &b);
 void mascot(mascota m);
-
+void opcion3()
+{
+	FILE *arch;
+	turnos reg;
+	
+	
+}
 main()
 {
 	mascota m;
@@ -105,19 +112,17 @@ void inicio(int &b)
 			fread(&x,sizeof(users),1,arch);
 			while(!feof(arch))
 			{
-			if(strcmp(x.usuario,asist)==0)
-			{
-
-				b=1;
-			}
-			fread(&x,sizeof(users),1,arch);
+				if(strcmp(x.usuario,asist)==0)
+				{
+					b=1;
+				}
+				fread(&x,sizeof(users),1,arch);
 			}
 			if(b==0)
 			{
 				printf("\nNo existe el usuario ingresado");
 			}
 		}while(b!=1);
-
 		do
 		{
 			rewind(arch);
@@ -127,16 +132,17 @@ void inicio(int &b)
 			fread(&x,sizeof(users),1,arch);
 			while(!feof(arch))
 			{
-			if(strcmp(x.pass,contr)==0)
-			{
-				b=1;
+				if(strcmp(x.pass,contr)==0)
+				{
+					b=1;
+				}
+				fread(&x,sizeof(users),1,arch);
 			}
-			fread(&x,sizeof(users),1,arch);
-			}
-			if(b==0)
-			{
-				printf("\nContraseña Incorrecta...");
-			}
+				if(b==0)
+				{
+					printf("\nContraseña Incorrecta...");
+				}
+		
 		}while(b!=1);
 	}
 }

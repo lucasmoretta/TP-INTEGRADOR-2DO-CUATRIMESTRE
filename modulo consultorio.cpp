@@ -31,7 +31,7 @@ struct Turnos
 	Fecha fec;
 	int DNI_Dueno;
 	char detalle[380];
-
+	bool borrado;
 };
 struct users
 {
@@ -76,8 +76,6 @@ main()
 		}
 	}while(opcion!=0);	
 }
-
-
 int menuprincipal()
 {
 	int opcion;
@@ -94,7 +92,6 @@ int menuprincipal()
 	printf("\n\t\t\t    Ingrese su Opcion ...: "); scanf(" %d",&opcion);
 	return opcion;
 }
-
 void inicio(int &b)
 {
 	FILE *arch;

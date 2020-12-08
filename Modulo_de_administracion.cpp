@@ -403,6 +403,7 @@ void opcion1()
 	printf("\n\t\t\tIngrese el Nombre y Apellido:\n");
 	_flushall();
 	//cin.getline(x.nombre,60,'\n');
+	printf("\n\t\t\t");
 	gets(x.nombre);
 	do
 	{
@@ -440,7 +441,7 @@ void opcion1()
 	printf("\n\t\t\t=======================================\n");
 	printf("\n\t\t\tIngrese la matricula :\n");
 	_flushall();
-	scanf("%d",&regis.matricula);
+	scanf("\t\t\t%d",&regis.matricula);
 	system("CLS");
 	printf("");
 	printf("\n\t\t\t=======================================\n");
