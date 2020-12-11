@@ -13,7 +13,6 @@ struct Fecha
 };
 struct mascota
 {
-	
 	char ApeyNom[60];
 	char Domicilio[60];
 	int DNI_Dueno;
@@ -26,7 +25,6 @@ struct mascota
 };
 struct Turnos
 {
-
 	int matricula;
 	Fecha fec;
 	int DNI_Dueno;
@@ -35,24 +33,23 @@ struct Turnos
 };
 struct users
 {
-
 	char usuario[20];
 	char pass[20];
 	char nombre[60];
-
 };
 
 using namespace std;
 
 int menuprincipal();
 void inicio(int &b);
-void evolucion_mascota(turnos t);
+void evolucion_mascota();
 void cargar_detalle(turnos t);
 viod mostrar_turnos();
-
+bool borrado_turno(FILE * turnos, int DNI_D)
 main()
 {
 	
+	veterinario vet;
 	turnos t;
 	int opcion=0,b;
 	
@@ -65,10 +62,10 @@ main()
 				inicio(b);
 				break;
 			case 2:
-				//opcion2();//registrar usuario de administracion
+				mostrar_turnos();
 				break;
 			case 3:
-		//		opcion3();//
+				evolucion_mascota();
 				break;
 			case 4:
 		//		opcion4();//
@@ -76,6 +73,7 @@ main()
 		}
 	}while(opcion!=0);	
 }
+
 int menuprincipal()
 {
 	int opcion;
@@ -92,6 +90,7 @@ int menuprincipal()
 	printf("\n\t\t\t    Ingrese su Opcion ...: "); scanf(" %d",&opcion);
 	return opcion;
 }
+
 void inicio(int &b)
 {
 	FILE *arch;
@@ -99,13 +98,19 @@ void inicio(int &b)
 	
 	char asist[60];
 	char contr[60];
+ 	
  	system("cls");
+ 	
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t      Iniciar secion          \n");
+	printf("\n\t\t\t=======================================\n");
+	printf("\n\t\t\t");
 	
 	arch=fopen("veterinario.dat","rb");
 
 	if(arch==NULL)
 	{
-		printf("\nNo hay usuarios registrados...");
+		printf("\n\t\t\tNo hay usuarios registrados...");
 		system("pause");
 	}
 	else
@@ -114,7 +119,7 @@ void inicio(int &b)
 		{
 			rewind(arch);
 			_flushall();
-			printf("\nIngrese Usuario: ");
+			printf("\n\t\t\tIngrese Usuario: ");
 			gets(asist);
 			fread(&x,sizeof(users),1,arch);
 			while(!feof(arch))
@@ -149,7 +154,7 @@ void inicio(int &b)
 			}
 			if(b==0)
 			{
-				printf("\nContraseña Incorrecta...");
+				printf("\n\t\t\tContraseña Incorrecta...");
 			}
 		}while(b!=1);
 	}
@@ -162,13 +167,17 @@ void evolucion_mascota(turnos t){
 	
 	int DNI_d[60];
 	char [380];
-	system("cls");
 	
-	arch=fopen("turnos","rb");
+	printf("\n\t\t\t========================================\n");
+	printf("\n\t\t\t  registrar la evolucion de la mascota          \n");
+	printf("\n\t\t\t========================================\n");
+	
+	arch=fopen("turnos.dat","r+b");
 	
 	if(arch==NULL)
 	{
-		printf("\nNo se registro ningun turno..");
+		printf("\n\t\t\tNo se registro ningun turno..");
+		system("cls");
 		system("pause");
 	}
 	else
@@ -176,28 +185,26 @@ void evolucion_mascota(turnos t){
 		do
 		{
 			rewind(arch);
-			_flushall();
-			printf("\ingrese el DNI del due%:co ",164);
-			gets(DNI_d);
+			
+			printf("\n\t\t\tingrese el DNI del due%:co ",164);
+			scanf("%d",&DNI_d);
 			fread(&x,sizeof(turno),1,arch);
 			while(!feof(arch))
 			{
-			if(strcmp(x.DNI_Dueno)==0)
+			if(DNI_d == x.DNI_Dueno)
 			{
-
 				b=1;
 			}
 			fread(&x,sizeof(turnos),1,arch);
 			}
 			if(b==0)
 			{
-				
-				printf("\nNo se registro ninguna mascota");
-			
+				printf("\n\t\t\tNo se registro ninguna mascota");
 			}
 			
 			system("cls");
 			cargar_detalle(turnos t);
+			borrado_turnos(turnos t, DNI_d);
 				
 		}while(b!=1);
 
@@ -214,6 +221,65 @@ void cargar_detalle(turnos t){
 	_flushall();
 	printf("Ingrese el diagnostico de la mascota;");
 	gets(t.detalle_atencion);
+	
+}
+
+bool borrado_turno(FILE * turnos, int DNI_D){
+	
+	bool borrado;
+	borrado = false;
+	
+	regturnos reg;
+	
+	FILE * archtemp;
+	archtemp = fopen("turnos.dat","w+b");
+	
+	if(DNI_D>0){
+		
+		rewind(turnos);
+		fread(&reg,sizeof(reg),1,turnos);
+		
+		while(!=feof(turnos)){
+			
+			if(DNI_D != reg.DNI_dueno){
+				
+				fwrite(&reg,sizeof(reg),1,archtemp);
+				
+			}else{
+				
+				borrado = true;
+				
+			}
+			
+			fread(&reg, sizeof(regturnos),1,turnos);
+			
+		}
+		
+	}else{
+		
+		fclose(archtemp);
+		
+	}
+	
+	if(borrado){
+		
+		fclese(archtemp);
+		fclose(turnos);
+		remove("turnos.dat");
+		rename("turnostemp.dat","turnos.dat");
+		
+		printf("El turnos se cumplio y ha sido eliminado del registro");
+		
+	}else{
+		
+		printf("El turno no se cumplio, aun no fue eliminado del registro ");
+		fclose(archtemp);
+		
+	}
+	
+	system("cls");
+	remove("turnostemp.dat");
+	return borrado;
 	
 }
 

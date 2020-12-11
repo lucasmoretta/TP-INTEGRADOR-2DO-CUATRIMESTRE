@@ -45,7 +45,7 @@ void mascot(mascota m);
 void turno(Turnos v[100],mascota m);
 void rank(veterinario vet,Turnos v[100]);
 
-}
+
 main()
 {
 	mascota m;
