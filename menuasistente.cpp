@@ -63,28 +63,45 @@ main()
 				break;
 			case 2:
 				if(b==1)
-				mascota(m);
+				mascot(m);
 				else
-				printf("\nInicie sesion para realizar las otras opciones...");
+				{
+					system("CLS");
+					printf("\n\n\n\t\t\t===================================================\n");
+					printf("\n\t\t\t Inicie sesion para realizar las otras opciones...         \n");
+					printf("\n\t\t\t===================================================\n");
+					printf("\n\n\n\t\t\t");system("pause");system("cls");	
+				}
+				
 				break;
 			case 3:
 				if(b==1)
 				turno(v,m);
 				else
-				printf("\nInicie sesion para realizar las otras opciones...");
+				{
+					system("CLS");
+					printf("\n\n\n\t\t\t===================================================\n");
+					printf("\n\t\t\t Inicie sesion para realizar las otras opciones...         \n");
+					printf("\n\t\t\t===================================================\n");
+					printf("\n\n\n\t\t\t");system("pause");system("cls");	
+				}
+				
 				break;
 			case 4:
 				if(b==1)
 				rank(vet,v);
 				else
-				printf("\nInicie sesion para realizar las otras opciones...");
+				{
+					system("CLS");
+					printf("\n\n\n\t\t\t===================================================\n");
+					printf("\n\t\t\t Inicie sesion para realizar las otras opciones...         \n");
+					printf("\n\t\t\t===================================================\n");
+					printf("\n\n\n\t\t\t");system("pause");system("cls");	
+				}
 				break;
 		}
  		
-	}while(opcion!=5);
-
-    printf("\n\n");
-    system("pause");
+	}while(opcion!=0);
 }
 
 int menuasistente()
@@ -99,7 +116,7 @@ int menuasistente()
 	printf("\n\t\t\t 2.- Registrar Mascota. \n");
 	printf("\n\t\t\t 3.- Registrar Turno.  \n");
 	printf("\n\t\t\t 4.- Listado de Atenciones por Veterinario y Fecha.      \n\n");
-	printf("\n\t\t\t 5.- Salir del programa.               \n");
+	printf("\n\t\t\t 0.- Salir del programa.               \n");
 	printf("\n\t\t\t ======================================\n");
 	printf("\n\t\t\t    Ingrese su Opcion ...: "); scanf(" %d",&opcion);
 	return opcion;
@@ -120,12 +137,12 @@ void inicio(int &b)
 	printf("\n\t\t\t=======================================\n");
 	printf("\n\t\t\t");
 	
-	arch=fopen("Usuarios.dat","rb");
+	arch=fopen("Usuario.dat","rb");
 
 	if(arch==NULL)
 	{
-		printf("\nNo hay usuarios registrados...");
-		system("pause");
+		printf("\n\t\t\tNo hay usuarios registrados...");
+		printf("\n\n\n\t\t\t");system("pause");system("cls");	
 	}
 	else
 	{
@@ -133,7 +150,8 @@ void inicio(int &b)
 		{
 			rewind(arch);
 			_flushall();
-			printf("\nIngrese Usuario: ");
+			printf("\n\t\t\t");
+			printf("Ingrese Usuario: ");
 			gets(asist);
 			fread(&x,sizeof(users),1,arch);
 			while(!feof(arch))
@@ -146,14 +164,16 @@ void inicio(int &b)
 			}
 			if(b==0)
 			{
-				printf("\nNo existe el usuario ingresado");
+				printf("\n\t\t\t");
+				printf("No existe el usuario ingresado");
 			}
 		}while(b!=1);
 		do
 		{
 			rewind(arch);
 			_flushall();
-			printf("\nIngrese Contraseña: ");
+			printf("\n\t\t\t");
+			printf("Ingrese Contraseña: ");
 			gets(contr);
 			fread(&x,sizeof(users),1,arch);
 			while(!feof(arch))
@@ -166,6 +186,7 @@ void inicio(int &b)
 			}
 				if(b==0)
 				{
+					printf("\n\t\t\t");
 					printf("\nContraseña Incorrecta...");
 				}
 		
@@ -183,7 +204,9 @@ void mascot(mascota m)
 	printf("\n\t\t\t      Registro de Mascota          \n");
 	printf("\n\t\t\t=======================================\n");
 	printf("\n\t\t\t");
+//	system("pause");
 	arch=fopen("mascotas.dat","a+b");
+	
 	
 	_flushall();
 	printf("\nNombre de la Mascota: ");
@@ -201,7 +224,7 @@ void mascot(mascota m)
 	scanf("%d",&m.fec.dia);
 	printf("\nMes: ");
 	scanf("%d",&m.fec.mes);
-	printf("\nA%o: ",164);
+	printf("\nA%co: ",164);
 	scanf("%d",&m.fec.anio);
 	
 	printf("\nPeso: ");
@@ -214,7 +237,9 @@ void mascot(mascota m)
 
 void turno(Turnos v[100],mascota m)
 {
-	FILE *arch,att;
+	FILE *arch,*att;
+	mascota x;
+	turnos z;
 	int i=0;
 	system("CLS");
 	printf("");
@@ -226,9 +251,7 @@ void turno(Turnos v[100],mascota m)
 	
 	att=fopen("Turnos.dat","a+b");
 	arch=fopen("mascotas.dat","rb");
-	fread(&m,sizeof(mascota),1,arch);
-	while(!feof(arch))
-	{
+
 		printf("\nIngrese matricula de veterinario: ");
 		scanf("%d",&v[i].matricula);
 		printf("\nFecha del turno: ");
@@ -241,6 +264,7 @@ void turno(Turnos v[100],mascota m)
 		
 		printf("\nIngrese el DNI del due%o: ",164);
 		scanf("%d",&v[i].DNI_Dueno);
+		fread(&x)
 		while(m.DNI_Dueno!=v[i].DNI_Dueno)
 		{
 			printf("\nDNI incorrecto...");
@@ -256,9 +280,7 @@ void turno(Turnos v[100],mascota m)
 		
 		i++;
 		fwrite(&v,sizeof(Turnos),1,att);
-	}
-	fclose(att);
-	fclose(arch);
+
 }
 
 void rank(veterinario vet,Turnos v[100])
@@ -275,7 +297,7 @@ void rank(veterinario vet,Turnos v[100])
 	att=fopen("Turnos.dat","rb");
 	arch=fopen("Veterinarios.dat","rb");
 	
-	fread(&vet,sizeof(veterinario),1,att)
+	fread(&vet,sizeof(veterinario),1,att);
 	
 	while(!feof(arch))
 	{
