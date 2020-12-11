@@ -41,9 +41,9 @@ struct veterinario
 
 int menuasistente();
 void inicio(int &b);
-void mascot(mascota m);
-void turno(Turnos v[100],mascota m);
-void rank(veterinario vet,Turnos v[100]);
+void mascot();
+void turno();
+void rank();
 
 
 main()
@@ -63,7 +63,7 @@ main()
 				break;
 			case 2:
 				if(b==1)
-				mascot(m);
+				mascot();
 				else
 				{
 					system("CLS");
@@ -76,7 +76,7 @@ main()
 				break;
 			case 3:
 				if(b==1)
-				turno(v,m);
+				turno();
 				else
 				{
 					system("CLS");
@@ -89,7 +89,7 @@ main()
 				break;
 			case 4:
 				if(b==1)
-				rank(vet,v);
+				rank();
 				else
 				{
 					system("CLS");
@@ -118,7 +118,9 @@ int menuasistente()
 	printf("\n\t\t\t 4.- Listado de Atenciones por Veterinario y Fecha.      \n\n");
 	printf("\n\t\t\t 0.- Salir del programa.               \n");
 	printf("\n\t\t\t ======================================\n");
-	printf("\n\t\t\t    Ingrese su Opcion ...: "); scanf(" %d",&opcion);
+	printf("\n\t\t\t    Ingrese su Opcion ...: ");
+	printf("\n\n\n\t\t\t");
+	scanf(" %d",&opcion);
 	return opcion;
 }
 
@@ -194,9 +196,10 @@ void inicio(int &b)
 	}
 }
 
-void mascot(mascota m)
+void mascot()
 {
 	FILE *arch;
+	mascota m;
 	
 	system("CLS");
 	printf("");
@@ -235,11 +238,11 @@ void mascot(mascota m)
 	fclose(arch);
 }
 
-void turno(Turnos v[100],mascota m)
+void turno()
 {
 	FILE *arch,*att;
-	mascota x;
-	turnos z;
+	mascota m;
+	Turnos z;
 	int i=0;
 	system("CLS");
 	printf("");
@@ -253,40 +256,41 @@ void turno(Turnos v[100],mascota m)
 	arch=fopen("mascotas.dat","rb");
 
 		printf("\nIngrese matricula de veterinario: ");
-		scanf("%d",&v[i].matricula);
+		scanf("%d",&z.matricula);
 		printf("\nFecha del turno: ");
 		printf("\nDia: ");
-		scanf("%d",&v[i].fec.dia);
+		scanf("%d",&z.fec.dia);
 		printf("\nMes: ");
-		scanf("%d",&v[i].fec.mes);
+		scanf("%d",&z.fec.mes);
 		printf("\nA%o: ",164);
-		scanf("%d",&v[i].fec.anio);
+		scanf("%d",&z.fec.anio);
 		
-		printf("\nIngrese el DNI del due%o: ",164);
-		scanf("%d",&v[i].DNI_Dueno);
-		fread(&x)
-		while(m.DNI_Dueno!=v[i].DNI_Dueno)
+		printf("\nIngrese el DNI del due%co: ",164);
+		scanf("%d",&z.DNI_Dueno);
+		fread(&m,sizeof(mascota),1,arch);
+		while(m.DNI_Dueno!=z.DNI_Dueno)
 		{
 			printf("\nDNI incorrecto...");
 			
-			printf("\nIngrese el DNI del due%o: ",164);
-			scanf("%d",&v[i].DNI_Dueno);
+			printf("\nIngrese el DNI del due%co: ",164);
+			scanf("%d",&z.DNI_Dueno);
 			fread(&m,sizeof(mascota),1,arch);
 		}
 		
 		_flushall();
 		printf("\nDetalles de la atencion: ");
-		gets(v[i].detalle_atencion);
+		gets(z.detalle_atencion);
 		
 		i++;
-		fwrite(&v,sizeof(Turnos),1,att);
+		fwrite(&z,sizeof(Turnos),1,att);
 
 }
 
-void rank(veterinario vet,Turnos v[100])
+void rank()
 {
 	FILE *att,*arch;
-	
+	veterinario vet;
+	Turnos z;
 	char veter[80];
 	int mess,i=0;
 	
@@ -306,22 +310,21 @@ void rank(veterinario vet,Turnos v[100])
 			printf("\nIngrese el mes de las atenciones del veterinario: ");
 			scanf("%d",&mess);
 			
-			fread(&v,sizeof(Turnos),1,att);
-			if(v[i].fec.mes==mess)
+			fread(&z,sizeof(Turnos),1,att);
+			if(z.fec.mes==mess)
 			{
 				_flushall();
 				printf("\nNombre del Veterinario: ");
 				puts(vet.nombre);
 				printf("\nMatricula: %d",vet.matricula);
 				
-				printf("\nTurnos en la fecha de %d/%d/%d",v[i].fec.dia,v[i].fec.mes,v[i].fec.anio);
-				printf("\nDNI del dueño: %d",v[i].DNI_Dueno);
+				printf("\nTurnos en la fecha de %d/%d/%d",z.fec.dia,z.fec.mes,z.fec.anio);
+				printf("\nDNI del dueño: %d",z.DNI_Dueno);
 				_flushall();
 				printf("\nDetalle de atencion: ");
 				printf("\n");
-				puts(v[i].detalle_atencion);
+				puts(z.detalle_atencion);
 			}
-			i++;
 		}
 		
 	}
