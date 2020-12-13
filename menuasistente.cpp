@@ -262,7 +262,7 @@ void turno()
 		scanf("%d",&z.fec.dia);
 		printf("\nMes: ");
 		scanf("%d",&z.fec.mes);
-		printf("\nA%o: ",164);
+		printf("\nA%co: ",164);
 		scanf("%d",&z.fec.anio);
 		
 		printf("\nIngrese el DNI del due%co: ",164);

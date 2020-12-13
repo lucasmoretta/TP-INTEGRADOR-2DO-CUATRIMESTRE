@@ -184,6 +184,7 @@ int usuario_(users z,int tipo)
 	size=strlen(z.usuario);
 	if(size>10 or size<6)
 	{
+		fread(&aux,sizeof(veterinario),1,arch);
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe tener minimo 6 caracteres y maximo de 10...\n");
 		printf("\n\n\n\t");system("pause");system("cls");
@@ -192,6 +193,7 @@ int usuario_(users z,int tipo)
 	//inciso b
 	if(z.usuario[0]>122 or z.usuario[0]<97)
 	{
+		fread(&aux,sizeof(veterinario),1,arch);
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe comenzar con una minuscula\n");
 		printf("\n\n\n\t");system("pause");system("cls");
@@ -200,6 +202,7 @@ int usuario_(users z,int tipo)
 	//inciso c
 	for(i=0;i<size;i++)
 	{
+		fread(&aux,sizeof(veterinario),1,arch);
 		if(z.usuario[i]>64 and z.usuario[i]<91)
 		{	
 			may++;
@@ -207,6 +210,7 @@ int usuario_(users z,int tipo)
 	}
 	if(may<2)
 	{
+		fread(&aux,sizeof(veterinario),1,arch);
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe tener minimo 2 letras mayusculas\n");
 		printf("\n\n\n\t");system("pause");system("cls");
@@ -215,7 +219,7 @@ int usuario_(users z,int tipo)
 	//inciso d
 	for(i=0;i<size;i++)
 	{
-	
+		fread(&aux,sizeof(veterinario),1,arch);
 		if(z.usuario[i]>47 and z.usuario[i]<58)
 		{	
 			num++;
@@ -223,6 +227,7 @@ int usuario_(users z,int tipo)
 	}
 	if(num>3)
 	{
+		fread(&aux,sizeof(veterinario),1,arch);
 		printf("\n\t\t\tIngrese otro nombre de usuario\n");
 		printf("\n\t\t\tEl usuario debe tener maximo 3 numeros\n");
 		printf("\n\n\n\t");system("pause");system("cls");
