@@ -1,0 +1,6 @@
+Algoritmo y estructura de datos
+Trabajo practico integrador 2do cuatrimestre.
+Integrantes del grupo:
+* Moretta, Lucas Exequiel; leg:50350
+* Mansilla, Francisco; DNI:41535994
+* Prado, Lucas Nahuel; leg:50349
