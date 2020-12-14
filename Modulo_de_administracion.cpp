@@ -30,12 +30,24 @@ struct turnos
 	fecha fec;
 	int DNI_dueno;
 	char detalle_atencion[380];	
+	bool borrado;
 };
 struct ranking
 {
 	char nombre[60];
 	int matricula;
 	int atenciones;
+};
+struct mascota
+{
+	char ApeyNom[60];
+	char Domicilio[60];
+	int DNI_Dueno;
+	char localidad[60];
+	fecha fec;
+	float Peso;
+	int telefono;
+	char diagnostico[380];
 };
 int menuprincipal();
 int usuario_(users z,int tipo);
@@ -45,7 +57,7 @@ void opcion2();
 void opcion3();
 void ordenar_mostrar(ranking atenc[20],int n);
 void opcion4();
-
+/*
 void prueba()
 {
 	turnos x;
@@ -76,7 +88,7 @@ void prueba()
 	x.fec.dia=10;x.fec.mes=12;x.fec.year=2020;
 	fwrite(&x,sizeof(turnos),1,arch);
 	fclose(arch);
-}
+}*/
 void listar_veterinarios()
 {
 	FILE *arch;
@@ -135,6 +147,65 @@ void listar_users()
 	}
 	printf("\n\n\n\t");system("pause");system("cls");	
 }
+void listar_mascota()
+{
+	FILE *arch;
+	mascota x;
+	int i=0;
+	arch=fopen("mascotas.dat","rb");
+	rewind(arch);
+	fread(&x,sizeof(mascota),1,arch);
+	while(!feof(arch))
+	{
+		if(i==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=========================================\n");
+			printf("\n\t\t\tCONTROL DE DATOS DE MASCOTAS\n");
+			printf("\n\t\t\t=========================================\n");			
+		}	
+		printf("\n\t\t\tnombre: %s\n",x.ApeyNom);
+		printf("\n\t\t\tdni dueno: %d           \n",x.DNI_Dueno);
+		//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+		printf("\n\t\t\t=========================================\n");
+		fread(&x,sizeof(mascota),1,arch);
+		i++;
+	}
+	printf("\n\n\n\t");system("pause");system("cls");	
+}
+void listar_turnos()
+{
+	FILE *arch;
+	turnos x;
+	int i=0;
+	arch=fopen("Turnos.dat","rb");
+	rewind(arch);
+	fread(&x,sizeof(turnos),1,arch);
+	while(!feof(arch))
+	{
+		if(i==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=========================================\n");
+			printf("\n\t\t\tCONTROL DE DATOS DE TURNOS\n");
+			printf("\n\t\t\t=========================================\n");			
+		}	
+		printf("\n\t\t\tmatricula del veterinario: %d\n",x.matricula_vet);
+		printf("\n\t\t\tdni dueno: %d           \n",x.DNI_dueno);
+		printf("\n\t\t\tfecha: %d/%d/%d           \n",x.fec.dia,x.fec.mes,x.fec.year);
+		//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+		printf("\n\t\t\t=========================================\n");
+		fread(&x,sizeof(turnos),1,arch);
+		i++;
+	}
+	printf("\n\n\n\t");system("pause");system("cls");	
+}
 main()
 {
 	int opcion=0;
@@ -160,6 +231,12 @@ main()
 				listar_veterinarios();//Control de datos de veterinarios
 				listar_users();//control de datos de usuarios de adm.
 				break;
+			case 1522:
+				listar_mascota();//Control de datos de mascotas
+				break;
+			case 1523:
+				listar_turnos();//Control de datos de turnos
+				break;	
 		}
 	}while(opcion!=0);	
 }
@@ -349,7 +426,6 @@ int pass_(users z)
 			}
 		}
 	}
-
 	return 0;
 }
 
@@ -473,7 +549,7 @@ void opcion2()
 }
 void opcion3()
 {
-	prueba();
+//	prueba();
 	turnos x;
 	FILE *arch;
 	arch=fopen("Turnos.dat","rb");
@@ -606,7 +682,7 @@ void opcion4()
 				fread(&z,sizeof(turnos),1,att);
 				while(!feof(att))
 				{
-					if(x.matricula==z.matricula_vet)
+					if(x.matricula==z.matricula_vet and z.borrado==true)
 					{
 						contador++;
 					}

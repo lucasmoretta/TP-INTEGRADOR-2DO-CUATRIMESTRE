@@ -243,7 +243,7 @@ void turno()
 	FILE *arch,*att;
 	mascota m;
 	Turnos z;
-	int i=0;
+	int i=0,b=0;
 	system("CLS");
 	printf("");
 	printf("\n\t\t\t=======================================\n");
@@ -251,10 +251,16 @@ void turno()
 	printf("\n\t\t\t=======================================\n");
 	
 	printf("\n\t\t\t");
-	
-	att=fopen("Turnos.dat","a+b");
 	arch=fopen("mascotas.dat","rb");
-
+	if(arch==NULL)
+	{
+		system("CLS");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      Primero registre mascotas          \n");
+		printf("\n\t\t\t=======================================\n");			
+	}
+	else
+	{
 		printf("\nIngrese matricula de veterinario: ");
 		scanf("%d",&z.matricula);
 		printf("\nFecha del turno: ");
@@ -265,25 +271,35 @@ void turno()
 		printf("\nA%co: ",164);
 		scanf("%d",&z.fec.anio);
 		
-		printf("\nIngrese el DNI del due%co: ",164);
-		scanf("%d",&z.DNI_Dueno);
-		fread(&m,sizeof(mascota),1,arch);
-		while(m.DNI_Dueno!=z.DNI_Dueno)
+		do
 		{
-			printf("\nDNI incorrecto...");
-			
+			b=0;
 			printf("\nIngrese el DNI del due%co: ",164);
 			scanf("%d",&z.DNI_Dueno);
+			rewind(arch);
 			fread(&m,sizeof(mascota),1,arch);
-		}
-		
+			while(feof(arch))
+			{
+				if(z.DNI_Dueno==m.DNI_Dueno)
+				{
+					b=1;
+				}
+				fread(&m,sizeof(mascota),1,arch);		
+			}
+			if(b==0)
+			{
+				printf("Ingrese un dni valido. . .");
+			}
+		}while(b==0);
 		_flushall();
 		printf("\nDetalles de la atencion: ");
 		gets(z.detalle_atencion);
-		
-		i++;
+		z.borrado=false;
+		att=fopen("Turnos.dat","a+b");
 		fwrite(&z,sizeof(Turnos),1,att);
-
+		fclose(arch);
+		fclose(att);
+	}
 }
 
 void rank()
@@ -292,41 +308,65 @@ void rank()
 	veterinario vet;
 	Turnos z;
 	char veter[80];
-	int mess,i=0;
-	
-	_flushall();
-	printf("\nIngrese el nombre de veterinario a buscar: ");
-	gets(veter);
-	
-	att=fopen("Turnos.dat","rb");
+	int mess,i=0,matricula;
 	arch=fopen("Veterinarios.dat","rb");
-	
-	fread(&vet,sizeof(veterinario),1,att);
-	
-	while(!feof(arch))
+	if(arch==NULL)
 	{
-		if(strcmp(vet.nombre,veter)==0)
+		system("CLS");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t      No hay veterinarios registrados           \n");
+		printf("\n\t\t\t=======================================\n");			
+	}
+	else
+	{
+		att=fopen("Turnos.dat","rb");
+		if(att==NULL)
 		{
-			printf("\nIngrese el mes de las atenciones del veterinario: ");
-			scanf("%d",&mess);
-			
-			fread(&z,sizeof(Turnos),1,att);
-			if(z.fec.mes==mess)
-			{
-				_flushall();
-				printf("\nNombre del Veterinario: ");
-				puts(vet.nombre);
-				printf("\nMatricula: %d",vet.matricula);
-				
-				printf("\nTurnos en la fecha de %d/%d/%d",z.fec.dia,z.fec.mes,z.fec.anio);
-				printf("\nDNI del dueño: %d",z.DNI_Dueno);
-				_flushall();
-				printf("\nDetalle de atencion: ");
-				printf("\n");
-				puts(z.detalle_atencion);
-			}
+			system("CLS");
+			printf("\n\t\t\t=======================================\n");
+			printf("\n\t\t\t      No hay turnos registrados           \n");
+			printf("\n\t\t\t=======================================\n");	
 		}
-		
+		else
+		{
+			_flushall();
+			printf("\nIngrese la matricula del veterinario a buscar: ");
+			scanf("%d",&matricula);		
+			rewind(arch);
+			fread(&vet,sizeof(veterinario),1,att);
+			while(!feof(arch))
+			{
+				if(vet.matricula==z.matricula)
+				{
+					printf("\nIngrese el mes de las atenciones del veterinario: ");
+					scanf("%d",&mess);
+					fread(&z,sizeof(Turnos),1,att);
+					while(!feof(att))
+					{
+						if(z.fec.mes==mess and z.borrado==false)
+						{
+							i=1;
+							_flushall();
+							printf("\nNombre del Veterinario: %s",vet.nombre);
+							printf("\nMatricula: %d",vet.matricula);
+							printf("\nTurnos en la fecha de %d/%d/%d",z.fec.dia,z.fec.mes,z.fec.anio);
+							printf("\nDNI del dueño: %d",z.DNI_Dueno);
+							printf("\nDetalle de atencion: %s",z.detalle_atencion);
+							printf("\n\t\t\t=======================================\n");
+						}
+						fread(&z,sizeof(Turnos),1,att);
+					}
+				}
+				fread(&vet,sizeof(veterinario),1,att);	
+			}		
+		}
+		if(i==0)
+		{
+			system("CLS");
+			printf("\n\t\t\t=======================================\n");
+			printf("\n\t\t\t      EL veterinario no tiene turnos este mes           \n");
+			printf("\n\t\t\t=======================================\n");
+		}
 	}
 }
 

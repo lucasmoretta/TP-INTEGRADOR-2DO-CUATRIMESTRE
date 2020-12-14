@@ -49,117 +49,10 @@ struct users
 using namespace std;
 
 int menuprincipal();
-void inicio(int &b,int &matr);/*
-void evolucion_mascota();
-void cargar_detalle(Turnos t);
-void mostrar_turnos();
-bool borrado_turno(FILE * turnos, int DNI_D);*/
-void opcion2(int matr)
-{
-	Fecha hoy;
-	FILE *arch;
-	Turnos x;
-	int dni_atender,i,b;
-	arch=fopen("Turnos.dat","rb");
-	if(arch==NULL)
-	{
-		printf("\n\t\t\tNo hay turnos registrados...");
-		printf("\n\n\n\t\t\t");system("pause");system("cls");
-	}
-	else
-	{
-		system("CLS");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\t        Listar Turnos         \n");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\tIngrese el dia:\n");
-		printf("\n\t\t\t");
-		scanf("%d",&hoy.dia);
-		printf("\n\t\t\tIngrese el mes:\n");
-		printf("\n\t\t\t");
-		scanf("%d",&hoy.mes);
-		printf("\n\t\t\tIngrese el a%co:\n",164);
-		printf("\n\t\t\t");
-		scanf("%d",&hoy.anio);
-		rewind(arch);
-		system("CLS");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\t       Listas de Turnos del dia          \n");
-		printf("\n\t\t\t=======================================\n");
-		fread(&x,sizeof(Turnos),1,arch);
-		b=0;
-		while(!feof(arch))
-		{
-			if(matr==x.matricula and hoy.dia==x.fec.dia and hoy.mes==x.fec.mes and hoy.anio==x.fec.anio)
-			{
-				i++;
-				printf("\n\t\t\t%d) DNI del due%co: %d",i,164,x.DNI_Dueno);
-				b=1;			
-			}
-			fread(&x,sizeof(Turnos),1,arch);
-		}
-		
-		if(b==0)
-		{
-			printf("\n\t\t\tNo hay turnos para el dia de hoy");
-		}
-		printf("\n\n\n\t\t\t");system("pause");system("cls");
-		
-			
-	}	
-	fclose(arch);
-	
-}
-void opcion3(int matr)
-{
-	system("cls");
-	int v;
-	FILE *arch;
-	Turnos x;
-	arch=fopen("Turnos.dat","rb");
-	int dni_atender;
-	if(arch==NULL)
-	{
-		printf("\n\t\t\tNo hay turnos registrados...");
-		printf("\n\n\n\t\t\t");system("pause");system("cls");
-	}
-	else
-	{
-		system("CLS");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\t     Registra Evolucion de mascota         \n");
-		printf("\n\t\t\t=======================================\n");
-		printf("\n\t\t\tIngrese el DNI del paciente a atender:");
-		scanf("%d",&dni_atender);
-		rewind(arch);
-		v=0;
-		fread(&x,sizeof(Turnos),1,arch);
-		while(!feof(arch))
-		{
-			if(dni_atender==x.DNI_Dueno)
-			{
-				printf("\n\t\t\tDiagnostico");
-				_flushall();
-				gets(x.diagnostico);
-				x.borrado=true;
-				fseek(arch,-sizeof(Turnos),SEEK_CUR);
-				fwrite(&x,sizeof(Turnos),1,arch);
-				v=1;	
-				
-			}
-			fread(&x,sizeof(Turnos),1,arch);
-			printf("%d",x.DNI_Dueno);
-			printf("\n\n\n\t\t\t");system("pause");system("cls");
-		}
-		if(v==0)
-		{
-			printf("\n\t\t\tIngrese un dni valido...");	
-			printf("\n\t\t\tConsulte el listado de turnos del dia...");
-			printf("\n\n\n\t\t\t");system("pause");system("cls");
-		}	
-	}
-	fclose(arch);	
-}
+void inicio(int &b,int &matr);
+void opcion2(int matr);
+void opcion3(int matr);
+
 main()
 {
 	
@@ -299,156 +192,106 @@ void inicio(int &b,int &matr)
 	}
 	fclose(arch);
 }
-/*
-void evolucion_mascota(turnos t)
+void opcion2(int matr)
 {
-	
-	FIlE *arch;
-	mascota x;
-	
-	int DNI_d[60];
-//	char [380];
-	
-	printf("\n\t\t\t========================================\n");
-	printf("\n\t\t\t  registrar la evolucion de la mascota          \n");
-	printf("\n\t\t\t========================================\n");
-	
-	arch=fopen("turnos.dat","r+b");
-	
+	Fecha hoy;
+	FILE *arch;
+	Turnos x;
+	int dni_atender,i,b;
+	arch=fopen("Turnos.dat","rb");
 	if(arch==NULL)
 	{
-		printf("\n\t\t\tNo se registro ningun turno..");
-		system("cls");
-		system("pause");
+		printf("\n\t\t\tNo hay turnos registrados...");
+		printf("\n\n\n\t\t\t");system("pause");system("cls");
 	}
 	else
 	{
-		do
+		system("CLS");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t        Listar Turnos         \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese el dia:\n");
+		printf("\n\t\t\t");
+		scanf("%d",&hoy.dia);
+		printf("\n\t\t\tIngrese el mes:\n");
+		printf("\n\t\t\t");
+		scanf("%d",&hoy.mes);
+		printf("\n\t\t\tIngrese el a%co:\n",164);
+		printf("\n\t\t\t");
+		scanf("%d",&hoy.anio);
+		rewind(arch);
+		system("CLS");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t       Listas de Turnos del dia          \n");
+		printf("\n\t\t\t=======================================\n");
+		fread(&x,sizeof(Turnos),1,arch);
+		b=0;
+		while(!feof(arch))
 		{
-			rewind(arch);
-			
-			printf("\n\t\t\tIngrese el DNI del due%co ",164);
-			scanf("%d",&DNI_d);
+			if(matr==x.matricula and hoy.dia==x.fec.dia and hoy.mes==x.fec.mes and hoy.anio==x.fec.anio)
+			{
+				i++;
+				printf("\n\t\t\t%d) DNI del due%co: %d",i,164,x.DNI_Dueno);
+				b=1;			
+			}
 			fread(&x,sizeof(Turnos),1,arch);
-			while(!feof(arch))
-			{
-				if(DNI_d == x.DNI_Dueno)
-				{
-					b=1;
-					_flushall();
-					printf("Ingrese el diagnostico de la mascota;");
-					gets(x.diagnostico);
-					fseek(arch,- sizeof(Turnos),SEEK_CUR);
-					fwrite(&x,sizeof(Turnos),1,arch);
-				}
-				fread(&x,sizeof(Turnos),1,arch);
-			}
-			if(b==0)
-			{
-				printf("\n\t\t\tNo se registro ninguna mascota");
-			}
-			system("cls");
-			
-		//	cargar_detalle(turnos t);
-			//borrado_turnos(turnos t, DNI_d);
-				
-		}while(b!=1);
-		
-
-	}
-
-}*/
-/*
-void cargar_detalle(turnos t){
-	
-	FILE * arch
-	
-	arch = fopen("turnos.dat" , "a+b" );
-	
-	_flushall();
-	printf("Ingrese el diagnostico de la mascota;");
-	gets(t.detalle_atencion);
-	
-}*/
-/*
-bool borrado_turno(FILE * turnos, int DNI_D){
-	
-	bool borrado;
-	borrado = false;
-	
-	regturnos reg;
-	
-	FILE * archtemp;
-	archtemp = fopen("turnos.dat","w+b");
-	
-	if(DNI_D>0){
-		
-		rewind(turnos);
-		fread(&reg,sizeof(reg),1,turnos);
-		
-		while(!=feof(turnos)){
-			
-			if(DNI_D != reg.DNI_dueno){
-				
-				fwrite(&reg,sizeof(reg),1,archtemp);
-				
-			}else
-			{
-				borrado = true;
-			}
-			
-			fread(&reg, sizeof(regturnos),1,turnos);
-			
 		}
 		
-	}else{
-		
-		fclose(archtemp);
-		
-	}
-	
-	if(borrado){
-		
-		fclese(archtemp);
-		fclose(turnos);
-		remove("turnos.dat");
-		rename("turnostemp.dat","turnos.dat");
-		
-		printf("El turnos se cumplio y ha sido eliminado del registro");
-		
-	}else{
-		
-		printf("El turno no se cumplio, aun no fue eliminado del registro ");
-		fclose(archtemp);
-		
-	}
-	
-	system("cls");
-	remove("turnostemp.dat");
-	return borrado;
-	
+		if(b==0)
+		{
+			printf("\n\t\t\tNo hay turnos para el dia de hoy");
+		}
+		printf("\n\n\n\t\t\t");system("pause");system("cls");
+	}	
+	fclose(arch);
 }
-
-void mostrar_turnos(){
-	
-	ifstream archivo;
-	string turnos;
-	
-	archivo.open("turnos.dat",ios::in);
-	
-	if(archivo.fail()){
-		
-		printf("No se registro ningun turno");
-		
-	} 
-	
-	while(!archivo.eof()){
-		
-		getline(archivo,turnos);
-		cout<<turnos<<endl
-		
+void opcion3(int matr)
+{
+	system("cls");
+	int v;
+	FILE *arch;
+	Turnos x;
+	arch=fopen("Turnos.dat","rb");
+	int dni_atender;
+	if(arch==NULL)
+	{
+		printf("\n\t\t\tNo hay turnos registrados...");
+		printf("\n\n\n\t\t\t");system("pause");system("cls");
 	}
-	
-	archivo.close();
-	
-}*/
+	else
+	{
+		system("CLS");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\t     Registra Evolucion de mascota         \n");
+		printf("\n\t\t\t=======================================\n");
+		printf("\n\t\t\tIngrese el DNI del paciente a atender:");
+		scanf("%d",&dni_atender);
+		rewind(arch);
+		v=0;
+		fread(&x,sizeof(Turnos),1,arch);
+		while(!feof(arch))
+		{
+			if(dni_atender==x.DNI_Dueno)
+			{
+				printf("\n\t\t\tDiagnostico");
+				_flushall();
+				gets(x.diagnostico);
+				x.borrado=true;
+				fseek(arch,-sizeof(Turnos),SEEK_CUR);
+				fwrite(&x,sizeof(Turnos),1,arch);
+				v=1;	
+				
+			}
+			fread(&x,sizeof(Turnos),1,arch);
+			printf("%d",x.DNI_Dueno);
+			printf("\n\n\n\t\t\t");system("pause");system("cls");
+		}
+		if(v==0)
+		{
+			printf("\n\t\t\tIngrese un dni valido...");	
+			printf("\n\t\t\tConsulte el listado de turnos del dia...");
+			printf("\n\n\n\t\t\t");system("pause");system("cls");
+		}	
+	}
+	fclose(arch);	
+}
