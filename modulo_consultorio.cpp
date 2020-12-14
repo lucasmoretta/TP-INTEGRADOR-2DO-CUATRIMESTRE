@@ -53,7 +53,7 @@ void opcion3(int matr);
 
 main()
 {
-	
+	system("color F4");
 	veterinario vet;
 	Turnos t;
 	int matr,opcion=0,b=0;
@@ -138,6 +138,7 @@ void inicio(int &b,int &matr)
 	if(arch==NULL)
 	{
 		printf("\n\t\t\tNo hay usuarios registrados...");
+		printf("\n\t\t\t");
 		system("pause");
 	}
 	else
@@ -161,7 +162,8 @@ void inicio(int &b,int &matr)
 			}
 			if(b==0)
 				{
-					printf("\nNo existe el usuario ingresado");
+					printf("\n\t\t\t");
+					printf("No existe el usuario ingresado");
 				}
 		}while(b!=1);
 
@@ -170,7 +172,9 @@ void inicio(int &b,int &matr)
 			b=0;
 			rewind(arch);
 			_flushall();
-			printf("\nIngrese Contrase%ca: ",164);
+			printf("\n\t\t\t");
+			printf("Ingrese Contrase%ca: ",164);
+			printf("\n\t\t\t");
 			gets(contr);
 			fread(&x,sizeof(veterinario),1,arch);
 			while(!feof(arch))
@@ -274,6 +278,7 @@ void opcion3(int matr)
 			{
 				printf("\n\t\t\tDiagnostico:");
 				_flushall();
+				printf("\n\t\t\t");
 				gets(x.diagnostico);
 				x.borrado=true;
 				fseek(arch,-sizeof(Turnos),SEEK_CUR);

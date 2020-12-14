@@ -57,168 +57,14 @@ void opcion2();
 void opcion3();
 void ordenar_mostrar(ranking atenc[20],int n);
 void opcion4();
-/*
-void prueba()
-{
-	turnos x;
-	FILE *arch;
-	arch=fopen("Turnos.dat","wb");
-	
-	x.DNI_dueno=1;
-	x.matricula_vet=789;
-	strcpy(x.detalle_atencion,"Todo bien");
-	x.fec.dia=10;x.fec.mes=12;x.fec.year=2020;
-	fwrite(&x,sizeof(turnos),1,arch);
-	
-	x.DNI_dueno=2;
-	x.matricula_vet=456;
-	strcpy(x.detalle_atencion,"Todo ok");
-	x.fec.dia=10;x.fec.mes=12;x.fec.year=2020;
-	fwrite(&x,sizeof(turnos),1,arch);
-	
-	x.DNI_dueno=3;
-	x.matricula_vet=789;
-	strcpy(x.detalle_atencion,"Todo bien");
-	x.fec.dia=10;x.fec.mes=12;x.fec.year=2020;
-	fwrite(&x,sizeof(turnos),1,arch);
-	
-	x.DNI_dueno=4;
-	x.matricula_vet=123;
-	strcpy(x.detalle_atencion,"Todo bien");
-	x.fec.dia=10;x.fec.mes=12;x.fec.year=2020;
-	fwrite(&x,sizeof(turnos),1,arch);
-	fclose(arch);
-}*/
-void listar_veterinarios()
-{
-	FILE *arch;
-	veterinario x;
-	int i=0;
-	arch=fopen("Veterinarios.dat","rb");
-	rewind(arch);
-	fread(&x,sizeof(veterinario),1,arch);
-	while(!feof(arch))
-	{
-		if(i==0)
-		{
-			system("CLS");
-			printf("");
-			printf("\n\t\t\t=========================================\n");
-			printf("\n\t\t\tCONTROL DE DATOS DE VETERINARIO          \n");
-			printf("\n\t\t\t=========================================\n");			
-		}	
-		printf("\n\t\t\tNombre: %s\n",x.nombre);
-		printf("\n\t\t\tUsuario: %s           \n",x.usuario);
-		printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
-		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
-		printf("\n\t\t\tDNI: %d           \n",x.dni);
-		printf("\n\t\t\t=========================================\n");
-		fread(&x,sizeof(veterinario),1,arch);
-		i++;
-	}
-	printf("\n\n\n\t");system("pause");system("cls");	
-}
-void listar_users()
-{
-	FILE *arch;
-	users x;
-	int i=0;
-	arch=fopen("Usuario.dat","rb");
-	rewind(arch);
-	fread(&x,sizeof(users),1,arch);
-	while(!feof(arch))
-	{
-		if(i==0)
-		{
-			system("CLS");
-			printf("");
-			printf("\n\t\t\t=========================================\n");
-			printf("\n\t\t\tCONTROL DE DATOS DE Usuarios de admin.          \n");
-			printf("\n\t\t\t=========================================\n");			
-		}	
-		printf("\n\t\t\tnombre: %s\n",x.nombre);
-		printf("\n\t\t\tUsuario: %s           \n",x.usuario);
-		printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
-/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
-		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
-		printf("\n\t\t\t=========================================\n");
-		fread(&x,sizeof(users),1,arch);
-		i++;
-	}
-	printf("\n\n\n\t");system("pause");system("cls");	
-}
-void listar_mascota()
-{
-	FILE *arch;
-	mascota x;
-	int i=0;
-	arch=fopen("Mascotas.dat","rb");
-	if(arch==NULL)
-	{
-		//	printf("\n\n\n\t ERROR");system("pause");system("cls");	
-	}
-	else
-	{
-		i=0;
-		rewind(arch);
-		//fread(&x,sizeof(mascota),1,arch);
-		while(!feof(arch))
-		{
-			if(i==0)
-			{
-				system("CLS");
-			//	printf("");
-				printf("\n\t\t\t=========================================\n");
-				printf("\n\t\t\tCONTROL DE DATOS DE MASCOTAS\n");
-				printf("\n\t\t\t=========================================\n");			
-			}	
-			_flushall();
-			printf("\n\t\t\tnombre: %s\n",x.ApeyNom);
-			printf("\n\t\t\tdni dueno: %d           \n",x.DNI_Dueno);
-			//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
-	/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
-			printf("\n\t\t\tDNI: %d           \n",x.dni);*/
-			printf("\n\t\t\t=========================================\n");
-			fread(&x,sizeof(mascota),1,arch);
-			i++;
-		}
-		printf("\n\n\n\tFRAN");system("pause");system("cls");	
-	}
-	
-	printf("\n\n\n\t");system("pause");system("cls");	
-}
-void listar_turnos()
-{
-	FILE *arch;
-	turnos x;
-	int i=0;
-	arch=fopen("Turnos.dat","rb");
-	rewind(arch);
-	fread(&x,sizeof(turnos),1,arch);
-	while(!feof(arch))
-	{
-		if(i==0)
-		{
-			system("CLS");
-			printf("");
-			printf("\n\t\t\t=========================================\n");
-			printf("\n\t\t\tCONTROL DE DATOS DE TURNOS\n");
-			printf("\n\t\t\t=========================================\n");			
-		}	
-		printf("\n\t\t\tmatricula del veterinario: %d\n",x.matricula_vet);
-		printf("\n\t\t\tdni dueno: %d           \n",x.DNI_dueno);
-		printf("\n\t\t\tfecha: %d/%d/%d           \n",x.fec.dia,x.fec.mes,x.fec.year);
-		//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
-/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
-		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
-		printf("\n\t\t\t=========================================\n");
-		fread(&x,sizeof(turnos),1,arch);
-		i++;
-	}
-	printf("\n\n\n\t");system("pause");system("cls");	
-}
+void listar_veterinarios();
+void listar_users();
+void listar_mascota();
+void listar_turnos();
+
 main()
 {
+	system("color F9");
 	int opcion=0;
 	
 	do
@@ -712,3 +558,132 @@ void opcion4()
 	ordenar_mostrar(atenc,i);
 }
 
+void listar_veterinarios()
+{
+	FILE *arch;
+	veterinario x;
+	int i=0;
+	arch=fopen("Veterinarios.dat","rb");
+	rewind(arch);
+	fread(&x,sizeof(veterinario),1,arch);
+	while(!feof(arch))
+	{
+		if(i==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=========================================\n");
+			printf("\n\t\t\tCONTROL DE DATOS DE VETERINARIO          \n");
+			printf("\n\t\t\t=========================================\n");
+		}
+		printf("\n\t\t\tNombre: %s\n",x.nombre);
+		printf("\n\t\t\tUsuario: %s           \n",x.usuario);
+		printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+		printf("\n\t\t\tDNI: %d           \n",x.dni);
+		printf("\n\t\t\t=========================================\n");
+		fread(&x,sizeof(veterinario),1,arch);
+		i++;
+	}
+	printf("\n\n\n\t");system("pause");system("cls");
+}
+void listar_users()
+{
+	FILE *arch;
+	users x;
+	int i=0;
+	arch=fopen("Usuario.dat","rb");
+	rewind(arch);
+	fread(&x,sizeof(users),1,arch);
+	while(!feof(arch))
+	{
+		if(i==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=========================================\n");
+			printf("\n\t\t\tCONTROL DE DATOS DE Usuarios de admin.          \n");
+			printf("\n\t\t\t=========================================\n");
+		}
+		printf("\n\t\t\tnombre: %s\n",x.nombre);
+		printf("\n\t\t\tUsuario: %s           \n",x.usuario);
+		printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+		printf("\n\t\t\t=========================================\n");
+		fread(&x,sizeof(users),1,arch);
+		i++;
+	}
+	printf("\n\n\n\t");system("pause");system("cls");
+}
+
+void listar_mascota()
+{
+	FILE *arch;
+	mascota x;
+	int i=0;
+	arch=fopen("Mascotas.dat","rb");
+	if(arch==NULL)
+	{
+		//	printf("\n\n\n\t ERROR");system("pause");system("cls");
+	}
+	else
+	{
+		i=0;
+		rewind(arch);
+		//fread(&x,sizeof(mascota),1,arch);
+		while(!feof(arch))
+		{
+			if(i==0)
+			{
+				system("CLS");
+			//	printf("");
+				printf("\n\t\t\t=========================================\n");
+				printf("\n\t\t\tCONTROL DE DATOS DE MASCOTAS\n");
+				printf("\n\t\t\t=========================================\n");
+			}
+			_flushall();
+			printf("\n\t\t\tnombre: %s\n",x.ApeyNom);
+			printf("\n\t\t\tdni dueno: %d           \n",x.DNI_Dueno);
+			//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+	/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+			printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+			printf("\n\t\t\t=========================================\n");
+			fread(&x,sizeof(mascota),1,arch);
+			i++;
+		}
+		printf("\n\n\n\tFRAN");system("pause");system("cls");
+	}
+
+	printf("\n\n\n\t");system("pause");system("cls");
+}
+void listar_turnos()
+{
+	FILE *arch;
+	turnos x;
+	int i=0;
+	arch=fopen("Turnos.dat","rb");
+	rewind(arch);
+	fread(&x,sizeof(turnos),1,arch);
+	while(!feof(arch))
+	{
+		if(i==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=========================================\n");
+			printf("\n\t\t\tCONTROL DE DATOS DE TURNOS\n");
+			printf("\n\t\t\t=========================================\n");
+		}
+		printf("\n\t\t\tmatricula del veterinario: %d\n",x.matricula_vet);
+		printf("\n\t\t\tdni dueno: %d           \n",x.DNI_dueno);
+		printf("\n\t\t\tfecha: %d/%d/%d           \n",x.fec.dia,x.fec.mes,x.fec.year);
+		//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+		printf("\n\t\t\t=========================================\n");
+		fread(&x,sizeof(turnos),1,arch);
+		i++;
+	}
+	printf("\n\n\n\t");system("pause");system("cls");
+}
