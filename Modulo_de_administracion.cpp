@@ -106,6 +106,35 @@ void listar_veterinarios()
 	}
 	printf("\n\n\n\t");system("pause");system("cls");	
 }
+void listar_users()
+{
+	FILE *arch;
+	users x;
+	int i=0;
+	arch=fopen("Usuario.dat","rb");
+	rewind(arch);
+	fread(&x,sizeof(users),1,arch);
+	while(!feof(arch))
+	{
+		if(i==0)
+		{
+			system("CLS");
+			printf("");
+			printf("\n\t\t\t=========================================\n");
+			printf("\n\t\t\tCONTROL DE DATOS DE Usuarios de admin.          \n");
+			printf("\n\t\t\t=========================================\n");			
+		}	
+		printf("\n\t\t\tnombre: %s\n",x.nombre);
+		printf("\n\t\t\tUsuario: %s           \n",x.usuario);
+		printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+		printf("\n\t\t\t=========================================\n");
+		fread(&x,sizeof(users),1,arch);
+		i++;
+	}
+	printf("\n\n\n\t");system("pause");system("cls");	
+}
 main()
 {
 	int opcion=0;
@@ -129,6 +158,7 @@ main()
 				break;
 			case 1521:
 				listar_veterinarios();//Control de datos de veterinarios
+				listar_users();//control de datos de usuarios de adm.
 				break;
 		}
 	}while(opcion!=0);	
@@ -165,9 +195,13 @@ int usuario_(users z,int tipo)
 	}
 	rewind(arch);
 	//inciso a
-	if(arch==NULL){}
+	if(arch==NULL)
+	{
+		printf("error");
+	}
 	else
 	{
+		printf("error");
 		fread(&aux,sizeof(veterinario),1,arch);
 		while(!feof(arch))
 		{
@@ -178,6 +212,7 @@ int usuario_(users z,int tipo)
 				printf("\n\n\n\t");system("pause");system("cls");
 				return 1;
 			}
+			fread(&aux,sizeof(veterinario),1,arch);
 		}
 	}
 	//tamaño
@@ -415,8 +450,9 @@ void opcion2()
 		printf("\n\t\t\t=======================================\n");
 		printf("\n\t\t\tIngrese el nombre de usuario :\n");
 		_flushall();
-		gets(x.usuario);
 		printf("\n\t\t\t");
+		gets(x.usuario);
+		
 		b=usuario_(x,tipo);
 	}while(b==1);
 	do
