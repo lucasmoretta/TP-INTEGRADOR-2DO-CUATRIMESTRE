@@ -7,43 +7,41 @@
 
 struct Fecha
 {
-	int dia,mes,anio;
-};
-struct veterinario
-{
-	char usuario[20];
-	char pass[20];
-	char nombre[60];
-	int matricula;
-	int dni;
-	int telefono;
+	int dia=0,mes=0,anio=0;
 };
 struct mascota
 {
-	char ApeyNom[60];
-	char Domicilio[60];
-	int DNI_Dueno;
-	char localidad[60];
+	char ApeyNom[60]="palabra";
+	char Domicilio[60]="palabra";
+	int DNI_Dueno=0;
+	char localidad[60]="palabra";
 	Fecha fec;
-	float Peso;
-	int telefono;
-	char diagnostico[380];
-
+	float Peso=0;
+	int telefono=0;
 };
 struct Turnos
 {
-	int matricula;
+	int matricula=0;
 	Fecha fec;
-	int DNI_Dueno;
-	char detalle[380];
-	bool borrado;
-	char diagnostico[400];
+	int DNI_Dueno=0;
+	char detalle_atencion[380]="palabra";
+	bool borrado=false;
+	char diagnostico[400]="palabra";
 };
 struct users
 {
-	char usuario[20];
-	char pass[20];
-	char nombre[60];
+	char usuario[20]="palabra";
+	char pass[20]="palabra";
+	char nombre[60]="palabra";
+};
+struct veterinario
+{
+	char usuario[20]="palabra";
+	char pass[20]="palabra";
+	char nombre[60]="palabra";
+	int matricula=0;
+	int dni=0;
+	int telefono=0;
 };
 
 using namespace std;
@@ -197,7 +195,7 @@ void opcion2(int matr)
 	Fecha hoy;
 	FILE *arch;
 	Turnos x;
-	int dni_atender,i,b;
+	int dni_atender,i=0,b;
 	arch=fopen("Turnos.dat","rb");
 	if(arch==NULL)
 	{
@@ -226,9 +224,10 @@ void opcion2(int matr)
 		printf("\n\t\t\t=======================================\n");
 		fread(&x,sizeof(Turnos),1,arch);
 		b=0;
+		
 		while(!feof(arch))
 		{
-			if(matr==x.matricula and hoy.dia==x.fec.dia and hoy.mes==x.fec.mes and hoy.anio==x.fec.anio)
+			if(matr==x.matricula && hoy.dia==x.fec.dia && hoy.mes==x.fec.mes && hoy.anio==x.fec.anio)
 			{
 				i++;
 				printf("\n\t\t\t%d) DNI del due%co: %d",i,164,x.DNI_Dueno);
@@ -273,17 +272,16 @@ void opcion3(int matr)
 		{
 			if(dni_atender==x.DNI_Dueno)
 			{
-				printf("\n\t\t\tDiagnostico");
+				printf("\n\t\t\tDiagnostico:");
 				_flushall();
 				gets(x.diagnostico);
 				x.borrado=true;
 				fseek(arch,-sizeof(Turnos),SEEK_CUR);
 				fwrite(&x,sizeof(Turnos),1,arch);
 				v=1;	
-				
+				fread(&x,sizeof(Turnos),1,arch);
 			}
 			fread(&x,sizeof(Turnos),1,arch);
-			printf("%d",x.DNI_Dueno);
 			printf("\n\n\n\t\t\t");system("pause");system("cls");
 		}
 		if(v==0)

@@ -172,6 +172,7 @@ void listar_mascota()
 				printf("\n\t\t\tCONTROL DE DATOS DE MASCOTAS\n");
 				printf("\n\t\t\t=========================================\n");			
 			}	
+			_flushall();
 			printf("\n\t\t\tnombre: %s\n",x.ApeyNom);
 			printf("\n\t\t\tdni dueno: %d           \n",x.DNI_Dueno);
 			//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
