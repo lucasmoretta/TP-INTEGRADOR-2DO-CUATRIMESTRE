@@ -257,6 +257,7 @@ void inicio(int &b,int &matr)
 			rewind(arch);
 			_flushall();
 			printf("\n\t\t\tIngrese Usuario: ");
+			printf("\n\n\n\t");
 			gets(vet);
 			fread(&x,sizeof(veterinario),1,arch);
 			while(!feof(arch))

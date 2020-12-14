@@ -197,11 +197,9 @@ int usuario_(users z,int tipo)
 	//inciso a
 	if(arch==NULL)
 	{
-		printf("error");
 	}
 	else
 	{
-		printf("error");
 		fread(&aux,sizeof(veterinario),1,arch);
 		while(!feof(arch))
 		{
