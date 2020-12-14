@@ -208,7 +208,7 @@ void mascot()
 	printf("\n\t\t\t=======================================\n");
 	printf("\n\t\t\t");
 //	system("pause");
-	arch=fopen("mascotas.dat","a+b");
+	
 	
 	
 	_flushall();
@@ -234,6 +234,7 @@ void mascot()
 	scanf("%f",&m.Peso);
 	printf("\nTelefono: ");
 	scanf("%d",&m.telefono);
+	arch=fopen("Mascotas.dat","a+b");
 	fwrite(&m,sizeof(mascota),1,arch);
 	fclose(arch);
 }
@@ -251,7 +252,7 @@ void turno()
 	printf("\n\t\t\t=======================================\n");
 	
 	printf("\n\t\t\t");
-	arch=fopen("mascotas.dat","rb");
+	arch=fopen("Mascotas.dat","rb");
 	if(arch==NULL)
 	{
 		system("CLS");

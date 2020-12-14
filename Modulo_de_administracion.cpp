@@ -152,28 +152,38 @@ void listar_mascota()
 	FILE *arch;
 	mascota x;
 	int i=0;
-	arch=fopen("mascotas.dat","rb");
-	rewind(arch);
-	fread(&x,sizeof(mascota),1,arch);
-	while(!feof(arch))
+	arch=fopen("Mascotas.dat","rb");
+	if(arch==NULL)
 	{
-		if(i==0)
-		{
-			system("CLS");
-			printf("");
-			printf("\n\t\t\t=========================================\n");
-			printf("\n\t\t\tCONTROL DE DATOS DE MASCOTAS\n");
-			printf("\n\t\t\t=========================================\n");			
-		}	
-		printf("\n\t\t\tnombre: %s\n",x.ApeyNom);
-		printf("\n\t\t\tdni dueno: %d           \n",x.DNI_Dueno);
-		//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
-/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
-		printf("\n\t\t\tDNI: %d           \n",x.dni);*/
-		printf("\n\t\t\t=========================================\n");
-		fread(&x,sizeof(mascota),1,arch);
-		i++;
+		//	printf("\n\n\n\t ERROR");system("pause");system("cls");	
 	}
+	else
+	{
+		i=0;
+		rewind(arch);
+		//fread(&x,sizeof(mascota),1,arch);
+		while(!feof(arch))
+		{
+			if(i==0)
+			{
+				system("CLS");
+			//	printf("");
+				printf("\n\t\t\t=========================================\n");
+				printf("\n\t\t\tCONTROL DE DATOS DE MASCOTAS\n");
+				printf("\n\t\t\t=========================================\n");			
+			}	
+			printf("\n\t\t\tnombre: %s\n",x.ApeyNom);
+			printf("\n\t\t\tdni dueno: %d           \n",x.DNI_Dueno);
+			//printf("\n\t\t\tContrase%ca: %s           \n",164,x.pass);
+	/*		printf("\n\t\t\tMatricula: %d           \n",x.matricula);
+			printf("\n\t\t\tDNI: %d           \n",x.dni);*/
+			printf("\n\t\t\t=========================================\n");
+			fread(&x,sizeof(mascota),1,arch);
+			i++;
+		}
+		printf("\n\n\n\tFRAN");system("pause");system("cls");	
+	}
+	
 	printf("\n\n\n\t");system("pause");system("cls");	
 }
 void listar_turnos()
